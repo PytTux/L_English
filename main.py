@@ -57,8 +57,12 @@ class Interface():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     say = 0
                     for button in button_list:
-                        button.is_overlap(say)
+                        button.is_clicked(say)
                         say+=1
+                else:
+                    for button in button_list:
+                        button.is_overlap()
+
             self.SCREEN.fill(self.back_clr)
             for button in button_list:
                 button.draw_b()

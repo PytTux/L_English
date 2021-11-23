@@ -1,4 +1,4 @@
-import pygame,sys
+import pygame,sys,time
 
 class Button():
     def __init__(self,loc,size,SCREEN,text = None):
@@ -18,14 +18,20 @@ class Button():
         if self.pos == "free":
             pygame.draw.rect(self.SCREEN,self.style["bg"],[(self.loc),(self.size)],3)
         elif self.pos == "overlap":
-            pygame.draw.rect(self.SCREEN,self.style["bg"],[(self.loc),(self.size)],3)
             pygame.draw.rect(self.SCREEN,self.style["ol"],[(self.loc),(self.size)])
+            pygame.draw.rect(self.SCREEN,self.style["bg"],[(self.loc),(self.size)],3)
         elif self.pos == "clicked":
             pygame.draw.rect(self.SCREEN,self.style["bg"],[(self.loc),(self.size)])
+            pygame.draw.rect(self.SCREEN, self.style["blk"], [(self.loc), (self.size)],2)
         self.draw_text()
         
-
-    def is_overlap(self,say):
+    def is_overlap(self):
+        mouse_loc = pygame.mouse.get_pos()
+        if mouse_loc[0] >= self.loc[0] and mouse_loc[0] <= self.size[0]+self.loc[0] and mouse_loc[1] >= self.loc[1] and mouse_loc[1] <= self.size[1]+self.loc[1]:
+                self.pos = "overlap"
+        else :
+            self.pos = "free"
+    def is_clicked(self,say):
         mouse_loc = pygame.mouse.get_pos()
         print(mouse_loc)
         if mouse_loc[0] >= self.loc[0] and mouse_loc[0] <= self.size[0]+self.loc[0]:
@@ -42,6 +48,7 @@ class Button():
                     print("ask")
                 elif say == 4:
                     print("add")
+
 
     def draw_text(self,):
         if self.text != None:
