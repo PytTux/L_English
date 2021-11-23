@@ -2,7 +2,7 @@ from sg_lib import button as bf
 from sg_lib import file_works as fw
 import random,sys,os, pygame,time
 
-dosya = open("words","r")
+dosya = open("words","w+")
 kelimeler = dosya.readlines()
 dosya.close()
 
