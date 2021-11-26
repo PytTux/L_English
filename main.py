@@ -1,10 +1,7 @@
 from sg_lib import button as bf
 from sg_lib import file_works as fw
+from sg_lib import button_wrt as wrt
 import random,sys,os, pygame,time
-
-dosya = open("words","w+")
-kelimeler = dosya.readlines()
-dosya.close()
 
 pygame.init()
 disp_info = pygame.display.Info()
@@ -28,6 +25,7 @@ class Interface():
 
         self.display_strt()
         self.is_open = True
+        self.is_open_ask = False
         self.main_loop()
 
     def display_strt(self):
@@ -43,12 +41,15 @@ class Interface():
 
     def main_loop(self):
         global WIDTH, HEIGHT
-        button_list = [bf.Button((WIDTH-30,10),(20,20),self.SCREEN),
-                       bf.Button((WIDTH-40,HEIGHT-40),(30,30),self.SCREEN),
-                       bf.Button((WIDTH-40,HEIGHT-80),(30,30),self.SCREEN),
-                       bf.Button((10,10),(150,50),self.SCREEN,"add word"),
-                       bf.Button((10,HEIGHT-60),(150,50),self.SCREEN,"ask question")]
-        
+        if self.is_open:
+            button_list = [bf.Button((WIDTH-30,10),(20,20),self.SCREEN),
+                           bf.Button((WIDTH-40,HEIGHT-40),(30,30),self.SCREEN),
+                           bf.Button((WIDTH-40,HEIGHT-80),(30,30),self.SCREEN),
+                           bf.Button((10,10),(150,50),self.SCREEN,"add word"),
+                           bf.Button((10,HEIGHT-60),(150,50),self.SCREEN,"ask question")]
+        elif self.is_open_ask:
+            button_list = [bf.Button((WIDTH-30,10),(20,20),self.SCREEN),
+                           bf.Button((WIDTH-40,HEIGHT-40),(30,30),self.SCREEN)]
         while self.is_open:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -68,4 +69,24 @@ class Interface():
                 button.draw_b()
             pygame.display.flip()
 
-main_loop = Interface()
+        while self.is_open_ask:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()  
+                    pygame.quit()
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    say = 0
+                    for button in button_list:
+                        button.is_clicked(say)
+                        say+=1
+                
+
+                
+                    
+
+
+
+mainloop = Interface()
+
+
+

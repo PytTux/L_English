@@ -1,4 +1,5 @@
 import pygame,sys,time
+from sg_lib import file_works as fw
 
 class Button():
     def __init__(self,loc,size,SCREEN,text = None):
@@ -27,8 +28,11 @@ class Button():
         
     def is_overlap(self):
         mouse_loc = pygame.mouse.get_pos()
-        if mouse_loc[0] >= self.loc[0] and mouse_loc[0] <= self.size[0]+self.loc[0] and mouse_loc[1] >= self.loc[1] and mouse_loc[1] <= self.size[1]+self.loc[1]:
+        if mouse_loc[0] >= self.loc[0] and mouse_loc[0] <= self.size[0]+self.loc[0]:
+            if mouse_loc[1] >= self.loc[1] and mouse_loc[1] <= self.size[1]+self.loc[1]:
                 self.pos = "overlap"
+            else:
+                self.pos = "free"
         else :
             self.pos = "free"
     def is_clicked(self,say):
@@ -45,9 +49,13 @@ class Button():
                 elif say == 2:
                     print("settings")
                 elif say == 3:
-                    print("ask")
-                elif say == 4:
                     print("add")
+                    tr = "sen"
+                    eng = "you"
+                    fw.add_word(tr,eng)
+                elif say == 4:
+                    print("ask")
+                    fw.ask_q()
 
 
     def draw_text(self,):
