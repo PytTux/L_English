@@ -79,14 +79,5 @@ class Interface():
                     for button in button_list:
                         button.is_clicked(say)
                         say+=1
-                
-
-                
-                    
-
-
 
 mainloop = Interface()
-
-
-
