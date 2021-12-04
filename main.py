@@ -55,7 +55,7 @@ class Interface():
                 if event.type == pygame.QUIT:
                     sys.exit()  
                     pygame.quit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                elif event.type == pygame.MOUSEBUTTONDOWN:
                     say = 0
                     for button in button_list:
                         button.is_clicked(say)
@@ -74,10 +74,25 @@ class Interface():
                 if event.type == pygame.QUIT:
                     sys.exit()  
                     pygame.quit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                elif event.type == pygame.MOUSEBUTTONDOWN:
                     say = 0
                     for button in button_list:
                         button.is_clicked(say)
+                        #if button.is_clicked(say):
                         say+=1
+
+                elif event.type == pygame.KEYDOWN:
+                    text = ""
+                    if event.key == 8:
+                        text = text[:-1]
+                    elif event.key == 32:
+                        text += " "
+                    else:
+                        text = text + pygame.key.name(event.key)
+                self.SCREEN.fill(self.back_clr)
+                for button in button_list:
+                    button.draw_b()
+                pygame.display.flip()
+
 
 mainloop = Interface()

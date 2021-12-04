@@ -32,9 +32,6 @@ def ask_q():
         print("boş geçmeyiniz")
     print(asking_question)
 
-
-
-
 def add_word(tr, eng, line = None, true=0, false=0):
     try:
         dosya = open("words", "r+") # open type "a" can add lines to file without delete
